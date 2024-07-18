@@ -6,6 +6,10 @@ candidate table-:
         email varchar(30),
         correct number(3),
         password varchar(100))
+
+
+
+
 question table-:
     create table question(
         qid number(2),
