@@ -71,6 +71,8 @@ class Question {
             System.out.println(e);
         } catch (ClassNotFoundException ce) {
             System.out.println(ce);
+        } catch (Exception ex){
+            System.out.println(ex);
         }
         return questions;
     }

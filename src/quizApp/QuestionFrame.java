@@ -106,6 +106,7 @@ public class QuestionFrame implements ActionListener {
         mainPanel.add(northPanel, BorderLayout.NORTH);
 
         //west panel
+
         JLabel nameLabel = new JLabel("Name: "+candidateInfos.getName());
         JLabel emailLabel = new JLabel("Email: "+candidateInfos.getEmail());
         JLabel rollNoLabel = new JLabel("Roll No: "+candidateInfos.getRollNo());
@@ -375,7 +376,7 @@ public class QuestionFrame implements ActionListener {
     private void clearSelection() {
         optionGroup.clearSelection();
     }
-    public static void main(String[] args) {
-        new QuestionFrame(7, 60,1);
-    }
+//    public static void main(String[] args) {
+//        new QuestionFrame(7, 60,1);
+//    }
 }
