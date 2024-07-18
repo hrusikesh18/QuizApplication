@@ -124,10 +124,7 @@ public class Result implements ActionListener {
         String command = ae.getActionCommand();
         if (command.equals("Close")) {
             frame.dispose();
+            new HomePage();
         }
     }
-
-//    public static void main(String[] args) {
-//        new Result(1);
-//    }
 }

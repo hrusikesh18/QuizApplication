@@ -376,7 +376,4 @@ public class QuestionFrame implements ActionListener {
     private void clearSelection() {
         optionGroup.clearSelection();
     }
-//    public static void main(String[] args) {
-//        new QuestionFrame(7, 60,1);
-//    }
 }

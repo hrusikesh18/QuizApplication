@@ -120,12 +120,3 @@ class CandidateInfo {
 
 
 }
-    /* candidate table
-    create table candidate(
-        cid number(3),
-        name varchar(40),
-        roll number(3),
-        email varchar(30),
-        correct number(3),
-        password(100))
-     */

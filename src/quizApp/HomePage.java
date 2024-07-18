@@ -163,12 +163,10 @@ public class HomePage implements ActionListener {
     }
 
     private boolean authenticateAdmin(String username, String password) {
-        return username.equals("Hrusikesh") && password.equals("Gopal");
+        return username.equals("Hrusikesh") && password.equals("12345");
     }
     private boolean authenticateUser(String username, String password) {
         CandidateInfo valid=CandidateInfo.fetchCandidateDetails(CandidateInfo.getCid(username));
-        System.out.println(CandidateInfo.getCid(username));
-
         return username.equals(valid.getName()) && password.equals(valid.getPassword());
     }
 

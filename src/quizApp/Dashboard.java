@@ -61,13 +61,13 @@ class Dashboard implements ActionListener {
         gbc.gridy = 1;
         contentPanel.add(lUserName, gbc);
 
-        lRollNo = new JLabel("Roll No: " + rollNo);
+        lRollNo = new JLabel("Roll No: " + candi.rollNo);
         lRollNo.setFont(new Font("Arial", Font.PLAIN, 20));
         lRollNo.setHorizontalAlignment(SwingConstants.CENTER);
         gbc.gridy = 2;
         contentPanel.add(lRollNo, gbc);
 
-        lEmail = new JLabel("Email: " + email);
+        lEmail = new JLabel("Email: " + candi.email);
         lEmail.setFont(new Font("Arial", Font.PLAIN, 20));
         lEmail.setHorizontalAlignment(SwingConstants.CENTER);
         gbc.gridy = 3;
@@ -163,11 +163,4 @@ class Dashboard implements ActionListener {
         }
         return numberOfQuestions;
     }
-
-
-
-//    public static void main(String[] args) {
-//        // Example usage
-////        new Dashboard("John Doe", "12345", "john.doe@example.com");
-//    }
 }

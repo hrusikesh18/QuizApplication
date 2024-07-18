@@ -231,8 +231,4 @@ class QuizStart implements ActionListener {
         }
         return countcandidate;
     }
-
-//    public static void main(String[] args) {
-//        new QuizStart();
-//    }
 }
