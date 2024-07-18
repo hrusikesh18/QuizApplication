@@ -201,9 +201,4 @@ class AdminDashboard implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Error fetching result. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    // Uncomment the main method if you want to run this class directly
-//    public static void main(String[] args) {
-//        new AdminDashboard("Admin");
-//    }
 }
