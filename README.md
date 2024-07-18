@@ -19,3 +19,10 @@ question table-:
         op3 varchar(200),
         op4 varchar(200),
         ans varchar(200))
+
+
+
+
+Admin-:
+    username-Hrusikesh
+    password-12345
