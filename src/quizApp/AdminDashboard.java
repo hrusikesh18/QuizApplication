@@ -116,9 +116,9 @@ class AdminDashboard implements ActionListener {
             frame.dispose();
             new AddQuiz();
         } else if (ae.getSource().equals(btnViewAllResults)) {
-            JOptionPane.showMessageDialog(frame, "Viewing all student results...");
+            viewAllResults();
         } else if (ae.getSource().equals(btnViewIndividualResult)) {
-            String studentRollNo = JOptionPane.showInputDialog(frame, "Enter student's roll number:");
+            String studentRollNo = JOptionPane.showInputDialog(frame, "Enter student's name:");
             if (studentRollNo != null && !studentRollNo.isEmpty()) {
                 viewIndividualResult(studentRollNo);
             }
@@ -128,22 +128,69 @@ class AdminDashboard implements ActionListener {
         }
     }
 
-    private void viewIndividualResult(String rollNo) {
+    private void viewAllResults() {
+        JFrame resultsFrame = new JFrame("All Student Results");
+        resultsFrame.setBounds(0, 0, 1540, 820);
+        resultsFrame.setLayout(new BorderLayout());
+
+        String[] columnNames = {"Roll No", "Name", "Score"};
+        Object[][] data = getAllResultsFromDatabase();
+
+        JTable table = new JTable(data, columnNames);
+        table.setRowHeight(30);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        resultsFrame.add(scrollPane, BorderLayout.CENTER);
+        resultsFrame.setVisible(true);
+    }
+
+    private Object[][] getAllResultsFromDatabase() {
+        Object[][] data = null;
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "12345");
-            String query = "SELECT * FROM result WHERE roll_no = ?";
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet resultSet = stmt.executeQuery("SELECT roll, name, correct FROM candidate");
+
+            resultSet.last();
+            int rowCount = resultSet.getRow();
+            resultSet.beforeFirst();
+
+            data = new Object[rowCount][3];
+            int i = 0;
+            while (resultSet.next()) {
+                data[i][0] = resultSet.getString("roll");
+                data[i][1] = resultSet.getString("name");
+                data[i][2] = resultSet.getInt("correct");
+                i++;
+            }
+
+            resultSet.close();
+            stmt.close();
+            conn.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(frame, "Error fetching results. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return data;
+    }
+
+    private void viewIndividualResult(String name) {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "12345");
+            String query = "SELECT * FROM candidate WHERE name = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, rollNo);
+            pstmt.setString(1, name);
             ResultSet resultSet = pstmt.executeQuery();
 
             if (resultSet.next()) {
-                String resultMessage = "Roll No: " + resultSet.getString("roll_no") + "\n"
-                        + "Score: " + resultSet.getInt("score") + "\n"
-                        + "Quiz Date: " + resultSet.getDate("quiz_date");
+                String resultMessage = "Roll No: " + resultSet.getString("roll") + "\n"
+                        +"Name: " + resultSet.getString("name")+ "\n"
+                        +"Score: " + resultSet.getInt("correct")+ "\n";
                 JOptionPane.showMessageDialog(frame, resultMessage, "Individual Result", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(frame, "No result found for roll number: " + rollNo, "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "No result found for username: " + name, "Error", JOptionPane.ERROR_MESSAGE);
             }
 
             resultSet.close();
@@ -155,6 +202,7 @@ class AdminDashboard implements ActionListener {
         }
     }
 
+    // Uncomment the main method if you want to run this class directly
 //    public static void main(String[] args) {
 //        new AdminDashboard("Admin");
 //    }

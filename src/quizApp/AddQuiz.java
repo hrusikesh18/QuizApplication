@@ -202,7 +202,7 @@ class AddQuiz implements ActionListener {
         tfop4.setText("");
         tfans.setText("");
         tfques.setText("");
-        tfqid.setText("");
+        tfqid.setText(String.valueOf(getNumberOfQuestionsFromDatabase()+2));
     }
 
 //    public static void main(String[] args) {
